@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './index.css';
-import taş from './taş.png';
+import taş from './tas.png';
 import kağıt from './kağıt.png';
 import makas from './makas.png';
 
@@ -52,4 +52,67 @@ function App() {
                         Sen: <strong>{playerChoice}</strong>
                     </p>
                     <p>
-                        Bilgisayar
+                        Bilgisayar: <strong>{computerChoice}</strong>
+                    </p>
+                    <p className={result ${result}}>
+                        {result === 'win' && 'Kazandın!'}
+                        {result === 'lose' && 'Kaybettin!'}
+                        {result === 'draw' && 'Berabere kaldınız!'}
+                    </p>
+                </div>
+            )}
+        </div>
+    );
+
+
+    import React, { useState } from 'react';
+    function NormalMode() {
+        const [score, setScore] = useState(0);
+
+        function play(choice) {
+            // Oyun mekanizması burada yer alır
+        }
+
+        return (
+            <div>
+                {/* Oyun UI burada yer alır */}
+                <button onClick={() => play('rock')}>Rock</button>
+                <button onClick={() => play('paper')}>Paper</button>
+                <button onClick={() => play('scissors')}>Scissors</button>
+            </div>
+        );
+    }
+
+
+
+    import React, { useState } from 'react';
+    function ProMode() {
+        const [score, setScore] = useState(0);
+
+        function play(choice) {
+            // Oyun mekanizması burada yer alır
+            // choice değişkeni "rock", "paper", "scissors" veya "spock" olabilir
+        }
+
+        return (
+            <div>
+                {/* Oyun UI burada yer alır */}
+                <button onClick={() => play('rock')}>Rock</button>
+                <button onClick={() => play('paper')}>Paper</button>
+                <button onClick={() => play('scissors')}>Scissors</button>
+                <button onClick={() => play('spock')}>Spock</button>
+            </div>
+        );
+    }
+
+    export default ProMode;
+
+
+    export default NormalMode;
+
+
+
+}
+
+
+export default App;

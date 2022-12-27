@@ -1,75 +1,55 @@
 import React, { useState } from 'react';
+import './index.css';
+import taş from './taş.png';
+import kağıt from './kağıt.png';
+import makas from './makas.png';
 
 function App() {
-    // State değişkenleri:
-    // Kullanıcının seçimi, rakipin seçimi ve sonuç mesajı
-    const [userChoice, setUserChoice] = useState(null);
+    const [playerChoice, setPlayerChoice] = useState(null);
     const [computerChoice, setComputerChoice] = useState(null);
-    const [resultMessage, setResultMessage] = useState('');
+    const [result, setResult] = useState(null);
 
-    // Seçenekleri tutan bir dizi
-    const choices = ['rock', 'paper', 'scissors'];
+    const choices = ['taş', 'kağıt', 'makas'];
 
-    // Kullanıcının seçimini alan fonksiyon
-    const handleUserChoice = (choice) => {
-        setUserChoice(choice);
-
-        // Rakipin seçimini rastgele oluştur
+    function choose(choice) {
         const randomIndex = Math.floor(Math.random() * 3);
-        setComputerChoice(choices[randomIndex]);
+        const computerChoice = choices[randomIndex];
+        setPlayerChoice(choice);
+        setComputerChoice(computerChoice);
 
-        // Kazananı veya berabere olup olmadığını hesaplayarak sonuç mesajı oluştur
-        if (choice === choices[randomIndex]) {
-            setResultMessage('Draw!');
+        if (choice === computerChoice) {
+            setResult('draw');
         } else if (
-            (choice === 'rock' && choices[randomIndex] === 'scissors') ||
-            (choice === 'paper' && choices[randomIndex] === 'rock') ||
-            (choice === 'scissors' && choices[randomIndex] === 'paper')
+            (choice === 'taş' && computerChoice === 'makas') ||
+            (choice === 'kağıt' && computerChoice === 'taş') ||
+            (choice === 'makas' && computerChoice === 'kağıt')
         ) {
-            setResultMessage('You win!');
+            setResult('win');
         } else {
-            setResultMessage('You lose!');
+            setResult('lose');
         }
-    };
+    }
 
     return (
-        <div>
-            {/* Seçenekleri gösteren component */}
-            <Options onClick={handleUserChoice} />
-            {/* Sonuç mesajını gösteren component */}
-            <Result userChoice={userChoice} computerChoice={computerChoice} message={resultMessage} />
-        </div>
-    );
-}
-
-// Seçenekleri gösteren component
-function Options(props) {
-    return (
-        <div>
-            {/* Her seçenek için bir Option componenti */}
-            <Option value="rock" onClick={props.onClick} />
-            <Option value="paper" onClick={props.onClick} />
-            <Option value="scissors" onClick={props.onClick} />
-        </div>
-    );
-}
-
-// Bir seçenek gösteren component
-function Option(props) {
-    return (
-        <button onClick={() => props.onClick(props.value)}>
-            {props.value}
-        </button>
-    );
-}
-
-// Sonuç mesajını gösteren component
-function Result(props) {
-    return (
-        <div>
-            <p>You chose: {props.userChoice}</p>
-            <p>Computer chose: {props.computerChoice}</p>
-            <p>{props.message}</p>
-        </div>
-    );
-}
+        <div className="game-container">
+            <div className="options">
+                <div className="option" onClick={() => choose('taş')}>
+                    <img src={taş} alt="Taş" />
+                    <p>Taş</p>
+                </div>
+                <div className="option" onClick={() => choose('kağıt')}>
+                    <img src={kağıt} alt="Kağıt" />
+                    <p>Kağıt</p>
+                </div>
+                <div className="option" onClick={() => choose('makas')}>
+                    <img src={makas} alt="Makas" />
+                    <p>Makas</p>
+                </div>
+            </div>
+            {playerChoice && computerChoice && (
+                <div className="result">
+                    <p>
+                        Sen: <strong>{playerChoice}</strong>
+                    </p>
+                    <p>
+                        Bilgisayar
